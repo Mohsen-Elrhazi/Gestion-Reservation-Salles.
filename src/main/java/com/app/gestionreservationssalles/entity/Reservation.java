@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,4 +26,22 @@ public class Reservation {
 
     @Enumerated(EnumType.STRING)
     private StatutReservation statut;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name="salle_id")
+    private SalleConference salleConference;
+
+    @ManyToMany
+    @JoinTable(
+        name = "reservation_equipement",
+        joinColumns = @JoinColumn(name = "reservation_id"),
+        inverseJoinColumns = @JoinColumn(name = "equipement_id")
+    )
+    private List<Equipement> equipements;
+
+
 }
