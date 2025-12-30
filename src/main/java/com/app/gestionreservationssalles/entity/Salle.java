@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SalleConference {
+public class Salle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -26,7 +26,7 @@ public class SalleConference {
     @Enumerated(EnumType.STRING)
     private TypeSalle type;
 
-    @OneToMany(mappedBy="salleConference")
+    @OneToMany(mappedBy="salle")
     private List<Reservation> reservations;
 
 }

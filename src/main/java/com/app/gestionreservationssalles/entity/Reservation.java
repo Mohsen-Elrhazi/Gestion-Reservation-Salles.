@@ -33,7 +33,7 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name="salle_id")
-    private SalleConference salleConference;
+    private Salle salle;
 
     @ManyToMany
     @JoinTable(
