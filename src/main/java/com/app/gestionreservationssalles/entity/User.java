@@ -26,6 +26,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private Boolean actif= true;
+
     @OneToMany(mappedBy="user")
     private List<Reservation> reservations;
 }
