@@ -6,6 +6,7 @@ import com.app.gestionreservationssalles.entity.Equipement;
 import com.app.gestionreservationssalles.entity.Reservation;
 import com.app.gestionreservationssalles.entity.Salle;
 import com.app.gestionreservationssalles.entity.User;
+import com.app.gestionreservationssalles.enums.StatutReservation;
 import com.app.gestionreservationssalles.exception.ResourceNotFoundException;
 import com.app.gestionreservationssalles.mapper.ReservationMapper;
 import com.app.gestionreservationssalles.repository.EquipementRepository;
@@ -72,7 +73,11 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationResponseDTO cancelReservation(Long id) {
-        return null;
+        Reservation reservation= reservationRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Reservation not found with id: "+ id));
+        reservation.setStatut(StatutReservation.CANCELLED);
+        Reservation updatedReservation= reservationRepository.save(reservation);
+        return reservationMapper.toResponseDTO(updatedReservation);
     }
 
     @Override
