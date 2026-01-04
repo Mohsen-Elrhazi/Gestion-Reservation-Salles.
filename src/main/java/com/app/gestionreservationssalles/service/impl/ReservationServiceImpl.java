@@ -64,7 +64,10 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<ReservationResponseDTO> getAllReservations() {
-        return List.of();
+        List<Reservation> reservations= reservationRepository.findAll();
+        return reservations.stream()
+                .map(reservationMapper::toResponseDTO)
+                .toList();
     }
 
     @Override
