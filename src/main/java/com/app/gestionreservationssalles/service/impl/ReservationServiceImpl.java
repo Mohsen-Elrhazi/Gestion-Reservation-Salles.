@@ -82,7 +82,12 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationResponseDTO validateReservation(Long id) {
-        return null;
+        Reservation reservation= reservationRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Reservation not found with id: "+ id));
+
+        reservation.setStatut(StatutReservation.CONFIRMED);
+        Reservation updatedReservation= reservationRepository.save(reservation);
+        return reservationMapper.toResponseDTO(updatedReservation);
     }
 
     @Override
