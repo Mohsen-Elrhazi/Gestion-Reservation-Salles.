@@ -25,8 +25,6 @@ public class SecurityConfig {
                                 .requestMatchers("/api/auth/register").hasRole("ADMIN")
 //                              .requestMatchers("/api/auth/register").permitAll()
 
-
-
                                 // SALLES
                                 .requestMatchers(HttpMethod.GET, "/api/salles/**").hasAnyRole("ADMIN","EMPLOYE") // consulter
                                 .requestMatchers(HttpMethod.POST, "/api/salles").hasRole("ADMIN") // créer
@@ -49,12 +47,6 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.PUT,"/api/reservations/*/cancel").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT,"/api/reservations/*/validate").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT,"/api/reservations/*/reject").hasRole("ADMIN")
-
-
-
-
-
-
 
                                 .anyRequest().authenticated()
                 )
