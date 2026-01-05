@@ -3,6 +3,7 @@ package com.app.gestionreservationssalles.service.impl;
 import com.app.gestionreservationssalles.dto.request.SalleRequestDTO;
 import com.app.gestionreservationssalles.dto.response.SalleResponseDTO;
 import com.app.gestionreservationssalles.entity.Salle;
+import com.app.gestionreservationssalles.exception.ResourceNotFoundException;
 import com.app.gestionreservationssalles.exception.SalleNotFoundException;
 import com.app.gestionreservationssalles.mapper.SalleMapper;
 import com.app.gestionreservationssalles.repository.SalleRepository;
@@ -29,25 +30,38 @@ public class SalleServiceImpl implements SalleService {
     @Override
     public SalleResponseDTO getSalleById(Long id) {
         Salle salle= salleRepository.findById(id)
-                .orElseThrow(() -> {
-                   return new SalleNotFoundException("Salle not found with id: " + id);
-                });
-        return salleMapper.toResponseDTO(salle);
+                .orElseThrow(() -> new ResourceNotFoundException("Salle not found with id: " + id));
 
+        return salleMapper.toResponseDTO(salle);
     }
 
     @Override
     public List<SalleResponseDTO> getAllSalles() {
-        return List.of();
+        List<Salle> salles = salleRepository.findAll();
+        return salles.stream()
+                .map(salleMapper::toResponseDTO)
+                .toList();
     }
 
     @Override
     public SalleResponseDTO updateSalle(Long id, SalleRequestDTO salleRequestDTO) {
-        return null;
+        Salle salle = salleRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Salle not found with id: " + id));
+
+        salle.setNumero(salleRequestDTO.getNumero());
+        salle.setNom(salleRequestDTO.getNom());
+        salle.setCapacite(salleRequestDTO.getCapacite());
+        salle.setType(salleRequestDTO.getType());
+
+        Salle updatedSalle = salleRepository.save(salle);
+        return salleMapper.toResponseDTO(updatedSalle);
     }
 
     @Override
     public void deleteSalle(Long id) {
+      Salle salle= salleRepository.findById(id)
+                .orElseThrow(() -> new SalleNotFoundException("Salle not found with id: " + id));
 
+        salleRepository.delete(salle);
     }
 }

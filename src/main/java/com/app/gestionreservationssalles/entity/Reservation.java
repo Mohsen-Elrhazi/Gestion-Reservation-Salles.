@@ -25,7 +25,7 @@ public class Reservation {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private StatutReservation statut;
+    private StatutReservation statut= StatutReservation.PENDING;
 
     @ManyToOne
     @JoinColumn(name="user_id")
