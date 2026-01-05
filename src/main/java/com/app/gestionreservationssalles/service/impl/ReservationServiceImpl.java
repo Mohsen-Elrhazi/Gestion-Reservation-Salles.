@@ -15,6 +15,7 @@ import com.app.gestionreservationssalles.repository.SalleRepository;
 import com.app.gestionreservationssalles.repository.UserRepository;
 import com.app.gestionreservationssalles.service.ReservationService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -29,6 +30,7 @@ public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepository reservationRepository;
     private final ReservationMapper reservationMapper;
 
+    @PreAuthorize("hasRole('EMPLOYE')")
     @Override
     public ReservationResponseDTO createReservation(ReservationRequestDTO dto) {
         Salle salle= salleRepository.findById(dto.getSalleId())
@@ -63,6 +65,7 @@ public class ReservationServiceImpl implements ReservationService {
         return List.of();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public List<ReservationResponseDTO> getAllReservations() {
         List<Reservation> reservations= reservationRepository.findAll();
@@ -71,6 +74,7 @@ public class ReservationServiceImpl implements ReservationService {
                 .toList();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public ReservationResponseDTO cancelReservation(Long id) {
         Reservation reservation= reservationRepository.findById(id)
@@ -80,6 +84,7 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationMapper.toResponseDTO(updatedReservation);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public ReservationResponseDTO validateReservation(Long id) {
         Reservation reservation= reservationRepository.findById(id)
@@ -90,6 +95,7 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationMapper.toResponseDTO(updatedReservation);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public ReservationResponseDTO rejectReservation(Long id) {
         Reservation reservation= reservationRepository.findById(id)

@@ -42,7 +42,7 @@ public class SecurityConfig {
 
                                 // RESERVATIONS
                                 .requestMatchers(HttpMethod.POST,"/api/reservations").hasRole("EMPLOYE")
-                                .requestMatchers(HttpMethod.GET,"/api/reservations/*").hasRole("EMPLOYE")
+                                .requestMatchers(HttpMethod.GET,"/api/reservations/*").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET,"/api/reservations").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT,"/api/reservations/*/cancel").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT,"/api/reservations/*/validate").hasRole("ADMIN")
