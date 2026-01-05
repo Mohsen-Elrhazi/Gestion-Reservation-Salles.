@@ -4,11 +4,13 @@ import com.app.gestionreservationssalles.dto.request.UserRequestDTO;
 import com.app.gestionreservationssalles.dto.request.UserUpdateDTO;
 import com.app.gestionreservationssalles.dto.response.UserResponseDTO;
 import com.app.gestionreservationssalles.entity.User;
+import com.app.gestionreservationssalles.enums.Role;
 import com.app.gestionreservationssalles.exception.ResourceNotFoundException;
 import com.app.gestionreservationssalles.mapper.UserMapper;
 import com.app.gestionreservationssalles.repository.UserRepository;
 import com.app.gestionreservationssalles.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +20,19 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
+
     @Override
-    public UserResponseDTO createUser(UserRequestDTO dto) {
+    public UserResponseDTO register(UserRequestDTO dto) {
        User user = userMapper.toEntity(dto);
-       User savedUser= userRepository.save(user);
+
+       user.setNom(dto.getNom());
+       user.setEmail(dto.getEmail());
+       user.setRole(Role.EMPLOYE);
+       user.setMotDePasse(passwordEncoder.encode(dto.getMotDePasse()));
+       user.setRole(Role.EMPLOYE);
+
+         User savedUser = userRepository.save(user);
        return userMapper.toResponseDTO(savedUser);
     }
 
@@ -37,8 +48,9 @@ public class UserServiceImpl implements UserService {
             user.setEmail(dto.getEmail());
        }
        if(dto.getMotDePasse() != null){
-            user.setMotDePasse(dto.getMotDePasse());
-         }
+           user.setMotDePasse(passwordEncoder.encode(dto.getMotDePasse()));
+
+       }
 
         User updatedUser = userRepository.save(user);
         return userMapper.toResponseDTO(updatedUser);

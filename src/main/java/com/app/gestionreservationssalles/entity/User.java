@@ -24,7 +24,7 @@ public class User {
     private String motDePasse;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role = Role.EMPLOYE;
 
     private Boolean actif= true;
 
