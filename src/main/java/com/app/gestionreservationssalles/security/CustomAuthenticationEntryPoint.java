@@ -1,4 +1,4 @@
 package com.app.gestionreservationssalles.security;
 
-public class SecurityConfig {
+public class CustomAuthenticationEntryPoint {
 }

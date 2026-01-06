@@ -20,7 +20,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponseDTO register(UserRequestDTO dto) {
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
        user.setNom(dto.getNom());
        user.setEmail(dto.getEmail());
        user.setRole(Role.EMPLOYE);
-       user.setMotDePasse(passwordEncoder.encode(dto.getMotDePasse()));
+//       user.setMotDePasse(passwordEncoder.encode(dto.getMotDePasse()));
        user.setRole(Role.EMPLOYE);
 
          User savedUser = userRepository.save(user);
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
             user.setEmail(dto.getEmail());
        }
        if(dto.getMotDePasse() != null){
-           user.setMotDePasse(passwordEncoder.encode(dto.getMotDePasse()));
+//           user.setMotDePasse(passwordEncoder.encode(dto.getMotDePasse()));
 
        }
 
