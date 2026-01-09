@@ -17,18 +17,18 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-//    @PostMapping
-//    public ResponseEntity<ApiResponse<UserResponseDTO>> createUser(@RequestBody UserRequestDTO dto){
-//        UserResponseDTO userResponseDTO = userService.createUser(dto);
-//
-//        return ResponseEntity.ok(
-//                ApiResponse.<UserResponseDTO>builder()
-//                        .status("success")
-//                        .message("User created successfully")
-//                        .data(userResponseDTO)
-//                        .build()
-//        );
-//    }
+    @PostMapping
+    public ResponseEntity<ApiResponse<UserResponseDTO>> createUser(@RequestBody UserRequestDTO dto){
+        UserResponseDTO userResponseDTO = userService.createUser(dto);
+
+        return ResponseEntity.ok(
+                ApiResponse.<UserResponseDTO>builder()
+                        .status("success")
+                        .message("User created successfully")
+                        .data(userResponseDTO)
+                        .build()
+        );
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<UserResponseDTO>> getUserById(@PathVariable Long id){

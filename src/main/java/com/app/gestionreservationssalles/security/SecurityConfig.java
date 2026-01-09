@@ -37,18 +37,18 @@ public class SecurityConfig {
                                 .requestMatchers("/api/auth/login").permitAll()
 
                                 // SALLES
-                                .requestMatchers(HttpMethod.GET, "/api/salles/**").hasAnyRole("ADMIN","EMPLOYE") // consulter
-                                .requestMatchers(HttpMethod.POST, "/api/salles").hasRole("ADMIN") // créer
-                                .requestMatchers(HttpMethod.PUT, "/api/salles/**").hasRole("ADMIN")  // modifier
-                                .requestMatchers(HttpMethod.DELETE, "/api/salles/**").hasRole("ADMIN") // supprimer
+                                .requestMatchers(HttpMethod.GET, "/api/salles/**").hasAnyRole("ADMIN","EMPLOYE")
+                                .requestMatchers(HttpMethod.POST, "/api/salles").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/salles/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/salles/**").hasRole("ADMIN")
 
                                 // EQUIPEMENTS
-                                .requestMatchers(HttpMethod.GET, "/api/equipements/**").hasAnyRole("ADMIN","EMPLOYE") // consulter
-                                .requestMatchers(HttpMethod.POST, "/api/equipements/**").hasRole("ADMIN") // créer
-                                .requestMatchers(HttpMethod.PATCH, "/api/equipements/**").hasRole("ADMIN")  // modifier
-                                .requestMatchers(HttpMethod.DELETE, "/api/equipements/**").hasRole("ADMIN") // supprimer
+                                .requestMatchers(HttpMethod.GET, "/api/equipements/**").hasAnyRole("ADMIN","EMPLOYE")
+                                .requestMatchers(HttpMethod.POST, "/api/equipements/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PATCH, "/api/equipements/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/equipements/**").hasRole("ADMIN")
 
-                                // USERS (CRUD uniquement pour ADMIN)
+                                // USERS
                                 .requestMatchers("/api/users/**").hasRole("ADMIN")
 
                                 // RESERVATIONS

@@ -1,4 +1,8 @@
 package com.app.gestionreservationssalles.auth.dto;
 
-public class RefreshTokenRequest {
+import lombok.Data;
+
+@Data
+public class RefreshTokenRequestDTO {
+    private String refreshToken;
 }
