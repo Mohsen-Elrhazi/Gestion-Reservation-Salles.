@@ -1,4 +1,4 @@
-package com.app.gestionreservationssalles.auth.dto;
+package com.app.gestionreservationssalles.auth.dto.request;
 
 import lombok.Data;
 

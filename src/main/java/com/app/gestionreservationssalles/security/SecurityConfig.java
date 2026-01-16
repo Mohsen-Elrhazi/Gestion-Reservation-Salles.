@@ -35,6 +35,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                                 // AUTH
                                 .requestMatchers("/api/auth/login").permitAll()
+                                .requestMatchers("/api/auth/refresh-token").permitAll()
 
                                 // SALLES
                                 .requestMatchers(HttpMethod.GET, "/api/salles/**").hasAnyRole("ADMIN","EMPLOYE")
