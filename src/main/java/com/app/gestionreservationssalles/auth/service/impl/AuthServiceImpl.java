@@ -28,12 +28,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponseDTO login(LoginRequestDTO request) {
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new ResourceNotFoundException("email ou mot de passe incorrect"));
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getMotDePasse())
         );
 
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new ResourceNotFoundException("Utilisateur non trouvé"));
 
         String accessToken  = jwtService.generateToken(user);
 //        String refreshToken = jwtService.generateRefreshToken(user);
@@ -56,5 +57,12 @@ public class AuthServiceImpl implements AuthService {
         String newRefreshToken= refreshTokenService.createRefreshToken(user);
         return new AuthResponseDTO(newAccessToken, newRefreshToken);
 
+    }
+
+    @Override
+    public void logout(RefreshTokenRequestDTO request) {
+        RefreshToken token = refreshTokenService.findByToken(request.getRefreshToken());
+        User user = token.getUser();
+        refreshTokenService.deleteByUser(user);
     }
 }

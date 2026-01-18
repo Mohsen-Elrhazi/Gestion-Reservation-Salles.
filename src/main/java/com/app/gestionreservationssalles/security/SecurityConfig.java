@@ -36,6 +36,7 @@ public class SecurityConfig {
                                 // AUTH
                                 .requestMatchers("/api/auth/login").permitAll()
                                 .requestMatchers("/api/auth/refresh-token").permitAll()
+//                                .requestMatchers("/api/auth/logout").authenticated()
 
                                 // SALLES
                                 .requestMatchers(HttpMethod.GET, "/api/salles/**").hasAnyRole("ADMIN","EMPLOYE")

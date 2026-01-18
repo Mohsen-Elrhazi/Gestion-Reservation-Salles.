@@ -42,4 +42,16 @@ public class AuthController {
         );
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<ApiResponse<Void>> logout(@RequestBody RefreshTokenRequestDTO request) {
+        authService.logout(request);
+        return ResponseEntity.ok(
+                ApiResponse.<Void>builder()
+                        .status("success")
+                        .message("Logout successful")
+                        .data(null)
+                        .build()
+        );
+    }
+
 }
